@@ -59,9 +59,9 @@ python3 NetworkApplications.py
 ## ICMP Ping
 
 ```bash
-sudo python3 NetworkApplications.py ping lancaster.ac.uk
-sudo python3 NetworkApplications.py ping lancaster.ac.uk --count 5
-sudo python3 NetworkApplications.py ping lancaster.ac.uk --timeout 3
+sudo python3 NetworkApplications.py ping example.com
+sudo python3 NetworkApplications.py ping example.com --count 5
+sudo python3 NetworkApplications.py ping example.com --timeout 3
 ```
 
 The ping implementation resolves the hostname, builds ICMP echo requests, sends raw packets, parses replies and prints RTT, packet loss and summary statistics.
@@ -69,8 +69,8 @@ The ping implementation resolves the hostname, builds ICMP echo requests, sends 
 ## Traceroute
 
 ```bash
-sudo python3 NetworkApplications.py traceroute lancaster.ac.uk --protocol udp
-sudo python3 NetworkApplications.py traceroute lancaster.ac.uk --protocol icmp
+sudo python3 NetworkApplications.py traceroute example.com --protocol udp
+sudo python3 NetworkApplications.py traceroute example.com --protocol icmp
 ```
 
 The traceroute implementation increases TTL values, sends three probes per hop and listens for ICMP Time Exceeded or destination responses.
@@ -80,8 +80,8 @@ The output shows hop addresses, optional hostnames and RTT values.
 ## Multi-threaded Traceroute
 
 ```bash
-sudo python3 NetworkApplications.py mtroute lancaster.ac.uk --protocol udp
-sudo python3 NetworkApplications.py mtroute lancaster.ac.uk --protocol icmp
+sudo python3 NetworkApplications.py mtroute example.com --protocol udp
+sudo python3 NetworkApplications.py mtroute example.com --protocol icmp
 ```
 
 This version separates probe sending and response collection into different threads.
@@ -119,9 +119,9 @@ Repeated requests to the same URL can be returned from cache.
 ## Example Workflow
 
 ```bash
-sudo python3 NetworkApplications.py ping lancaster.ac.uk --count 3
-sudo python3 NetworkApplications.py traceroute lancaster.ac.uk --protocol udp
-sudo python3 NetworkApplications.py mtroute lancaster.ac.uk --protocol icmp
+sudo python3 NetworkApplications.py ping example.com --count 3
+sudo python3 NetworkApplications.py traceroute example.com --protocol udp
+sudo python3 NetworkApplications.py mtroute example.com --protocol icmp
 python3 NetworkApplications.py web --port 8080
 python3 NetworkApplications.py proxy --port 8000
 ```
