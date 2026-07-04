@@ -11,8 +11,6 @@ import random
 import traceback
 import threading
 
-#  NOTE: Do NOT import other libraries!
-
 UDP_CODE = socket.IPPROTO_UDP
 ICMP_ECHO_REQUEST = 8
 MAX_DATA_RECV = 65535
@@ -21,7 +19,7 @@ MAX_TTL = 30
 
 def setupArgumentParser() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description='A collection of Network Applications developed for SCC.231.')
+        description='Python networking toolkit implementing ping, traceroute, a web server and an HTTP proxy.')
     parser.set_defaults(func=ICMPPing, hostname='lancaster.ac.uk')
     subparsers = parser.add_subparsers(help='sub-command help')
 
@@ -275,7 +273,6 @@ class ICMPPing(NetworkApplication):
         # 6. Return the time of Receipt
         return timeRecvd, ttl, payloadSize, sequenceNumReceived
 
-    # NOTE: This method can be re-used by ICMP traceroute
     # Send Echo Ping Request
     def sendOnePing(self, destinationAddress, packetID, sequenceNumber, ttl=None, dataLength=0):
         # 1. Build ICMP header
@@ -287,10 +284,6 @@ class ICMPPing(NetworkApplication):
         my_checksum = self.checksum(header + data)
 
         # 3. Insert checksum into packet
-        # NOTE: it is optional to include an additional 8-byte timestamp (time when probe is sent)
-        # in which case, a stateless ping can be implemented: the response will contain
-        # the sending time so no need to keep that state,
-        # but we don't do that here (instead, we record sending time state in step 5)
         packet = struct.pack('!BBHHH', ICMP_ECHO_REQUEST, 0, socket.htons(my_checksum), packetID, sequenceNumber)
 
         if ttl is not None:
@@ -378,7 +371,7 @@ class Traceroute(ICMPPing):
                 sys.exit(1)
             ttl += 1
 
-    # TODO: send 3 ICMP traceroute probes per TTL and collect responses
+    # Send 3 ICMP traceroute probes per TTL and collect responses
     def sendIcmpProbesAndCollectResponses(self, ttl):
         hopAddr = None
         icmpType = None
@@ -427,7 +420,7 @@ class Traceroute(ICMPPing):
         # 7. Print one line of the results for the 3 probes
         self.printMultipleResults(ttl, pkt_keys, hop_addrs, rtts, args.hostname)
 
-    # TODO: parse the response to the ICMP probe
+    # Parse the response to the ICMP probe
     def parseICMPTracerouteResponse(self, trReplyPacket):
 
         # # Check theres enough data for the IP header
@@ -606,7 +599,7 @@ class Traceroute(ICMPPing):
         return timeSent
 
 
-# TODO: A multi-threaded traceroute implementation
+# A multi-threaded traceroute implementation
 class MultiThreadedTraceRoute(Traceroute):
 
     def __init__(self, args):
@@ -661,11 +654,11 @@ class MultiThreadedTraceRoute(Traceroute):
         # Closes the socket
         self.icmpSocket.close()
 
-        #  6. TODO Print results
+        #  6. Print results
         for ttl in self.pkt_keys:
             self.printMultipleResults(ttl, [self.pkt_keys[ttl] - 2, self.pkt_keys[ttl] - 1, self.pkt_keys[ttl]], self.hop_addrs, self.rtts, args.hostname)
 
-    # Thread to send probes (to be implemented, a skeleton is provided)
+    # Thread to send probes 
     def send_probes(self):
         dstPort = 33439
 
@@ -712,7 +705,7 @@ class MultiThreadedTraceRoute(Traceroute):
         # Notify the other thread that sending is complete
         self.send_complete.set()
 
-    # Thread to receive responses (to be implemented, a skeleton is provided)
+    # Thread to receive responses
     def receive_responses(self):
 
         # Keep receiving responses until notified by the other thread
@@ -751,12 +744,6 @@ class MultiThreadedTraceRoute(Traceroute):
 
 
 # A basic multi-threaded web server implementation
-
-# You can test the web server as follows:
-# First, run the server in the terminal: python3 NetworkApplications.py web
-# Then, copy the following and paste to a browser's address bar: 127.0.0.1:8080/index.html
-# NOTE: the index.html file needs to be downloaded from the Moodle (Dummy HTML file)
-# and copied to the folder where you run this code
 class WebServer(NetworkApplication):
 
     def __init__(self, args):
@@ -780,7 +767,7 @@ class WebServer(NetworkApplication):
             # 5. Create a new thread to handle each client request
             threading.Thread(target=self.handleRequest, args=(connectionSocket,)).start()
 
-        # Close server socket (this would only happen if the loop was broken, which it isn't in this example)
+        # Close server socket 
         serverSocket.close()
 
     def handleRequest(self, connectionSocket):
@@ -816,7 +803,7 @@ class WebServer(NetworkApplication):
             connectionSocket.close()
 
 
-#  TODO: A proxy implementation
+#  A proxy implementation
 class Proxy(NetworkApplication):
 
     def __init__(self, args):
@@ -928,8 +915,6 @@ class Proxy(NetworkApplication):
             serverSocket.close()
         return cachePath
 
-
-# NOTE: Do NOT delete the code below
 if __name__ == "__main__":
     args = setupArgumentParser()
     args.func(args)
