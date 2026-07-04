@@ -20,7 +20,7 @@ MAX_TTL = 30
 def setupArgumentParser() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description='Python networking toolkit implementing ping, traceroute, a web server and an HTTP proxy.')
-    parser.set_defaults(func=ICMPPing, hostname='lancaster.ac.uk')
+    parser.set_defaults(func=ICMPPing, hostname='example.com')
     subparsers = parser.add_subparsers(help='sub-command help')
 
     parser_p = subparsers.add_parser('ping', aliases=['p'], help='run ping')
