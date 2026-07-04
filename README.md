@@ -139,7 +139,6 @@ It covers packet-level implementation, routing-path discovery, raw socket handli
 - The web server is intentionally minimal.
 - The proxy supports simple HTTP traffic, not HTTPS.
 - Cache invalidation and advanced HTTP headers are not handled.
-- This project is intended for local educational use only. The web server and proxy are intentionally minimal and are not hardened for public internet deployment. Only run the networking tools against systems or networks you own or have permission to test.
 
 ## File Summary
 
@@ -148,6 +147,14 @@ It covers packet-level implementation, routing-path discovery, raw socket handli
 The script defines a shared `NetworkApplication` base class and implements `ICMPPing`, `Traceroute`, `MultiThreadedTraceRoute`, `WebServer` and `Proxy`.
 
 Each tool is launched from the command line using its matching subcommand.
+
+## Security and Usage Notes
+
+This project is intended for local educational use only.
+
+The web server and proxy are intentionally minimal and are not hardened for public internet deployment. They should not be exposed directly to the internet.
+
+Only run the ping, traceroute and proxy tools against hosts, systems or networks you own or have permission to test.
 
 ## Usage Notice
 
