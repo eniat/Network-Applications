@@ -1,0 +1,20 @@
+Copyright (c) 2026 Taine (github.com/eniat)
+
+All rights reserved.
+
+This repository is published for portfolio and technical-review purposes only.
+
+No permission is granted to any person to copy, redistribute, publish,
+sublicense, submit for academic assessment, or otherwise reuse this work, in
+whole or in part, whether for coursework, commercial, or any other purpose,
+without the prior written permission of the copyright holder.
+
+Viewing the source for the purpose of evaluating the author's work is
+permitted. All other rights are reserved.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM, OUT
+OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
